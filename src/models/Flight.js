@@ -5,8 +5,8 @@ export const searchFlight = async ({ from, to, departureTime, arrivalTime, fligh
 
   if (from) filters.from = from;
   if (to) filters.to = to;
-  if (departureTime) filters.departureTime = new Date(departureTime);
-  if (arrivalTime) filters.arrivalTime = new Date(arrivalTime);
+  if (departureTime) filters.departureTime = { contains: departureTime };
+  if (arrivalTime) filters.arrivalTime = { contains: arrivalTime };
   if (flightClass) filters.flightClass = flightClass;
 
   return await prisma.flight.findMany({
