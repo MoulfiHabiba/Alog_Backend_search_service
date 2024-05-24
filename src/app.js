@@ -1,6 +1,7 @@
 import express from 'express';
 import prisma from './prisma.js';
 import userRoutes from './routes/userRoutes.js';
+import flightRoutes from './routes/flightRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,6 +11,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api', userRoutes);
+app.use('/flights', flightRoutes);
+
 
 const server = app.listen(PORT, async () => {
   console.log(`Server is running on http://localhost:${PORT}`);

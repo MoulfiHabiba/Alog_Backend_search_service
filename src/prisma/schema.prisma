@@ -21,8 +21,13 @@ model User {
   password  String
 }
 
-model Airline {
-  id        Int     @id @default(autoincrement())
-  name      String
-  description  String
+
+model Flight {
+  id            Int      @id @default(autoincrement())
+  description   String
+  departureTime DateTime
+  arrivalTime   DateTime
+  from          String
+  to            String
+  flightClass         String
 }
