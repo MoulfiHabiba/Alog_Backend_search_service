@@ -51,7 +51,7 @@ const airlinesConfig = [
 
 
 const buildApiUrl = (queryParams, flight) => {
-    const paramsMapping = flight.endpoint.params;
+    const paramsMapping = flight.Endpoint[0].Params[0];
 
     const searchParams = {
         [paramsMapping.departure]: queryParams.departure ,
@@ -62,7 +62,7 @@ const buildApiUrl = (queryParams, flight) => {
     };
 
     // Construct search URL with query params
-    const searchURL = new URL(`${flight.baseURL}/${flight.endpoint.path}`);
+    const searchURL = new URL(`${flight.baseURL}/${flight.Endpoint[0].path}`);
     Object.keys(searchParams).forEach((key) =>{
         if(!!searchParams[key]){
             searchURL.searchParams.append(key, searchParams[key])
@@ -96,7 +96,7 @@ const getFlights =  async (queryParams, flight) => {
     const searchURL = buildApiUrl(queryParams,flight);
     try {
         const response = await callAPI(searchURL);
-        const mappedData = mappResponse(response,flight.endpoint.responseMapping)
+        const mappedData = mappResponse(response,flight.Endpoint[0].ResponseMapping[0])
         return mappedData;
     } catch (error) {
         console.error(`Error fetching flights from Airline:`, error);
@@ -108,10 +108,10 @@ const getFlights =  async (queryParams, flight) => {
 const searchFlights = async (req, res) => {
     const queryParams = req.query;
     try {
-        // const allFlights = await callAPI(/**serine api */);
+        const allFlights = await callAPI("https://service-registery-flight-reservation.onrender.com/airlines");
         let result = [];
 
-        for (const airline of airlinesConfig) {
+        for (const airline of allFlights.data) {
             const response = await getFlights(queryParams, airline);
             result.push(...response);
         }
