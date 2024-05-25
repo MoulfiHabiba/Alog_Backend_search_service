@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import flightRoutes from './routes/flightSearchRoutes.js';
 
 const app = express();
