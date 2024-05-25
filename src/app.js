@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Routes
 app.use('/search', flightRoutes);
-
+   
 
 app.listen(PORT, async () => {
   console.log(`Server is running on http://localhost:${PORT}`);
